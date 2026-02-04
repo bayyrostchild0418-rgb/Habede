@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hi</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #fffaf0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .page {
+      position: absolute;
+      width: 90%;
+      max-width: 800px;
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+
+    .page.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    h1 {
+      color: #3f4fa3;
+      letter-spacing: 2px;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    p { color: #555; }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      position: relative;
+      font-size: 14px;
+      color: #666;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    button::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #666;
+      margin-top: 4px;
+    }
+
+    #landing h1 { font-size: 48px; }
+    #landing .subtitle { margin: 15px 0 40px; font-size: 15px; }
+
+    .buttons { display: flex; justify-content: center; gap: 40px; }
+
+    .items { display: flex; justify-content: space-around; margin-top: 40px; }
+    .item { cursor: pointer; transition: transform 0.25s ease; }
+    .item:hover { transform: translateY(-6px) scale(1.05); }
+    .item img { width: 90px; }
+
+    .gallery { position: relative; height: 400px; }
+
+    .polaroid {
+      position: absolute;
+      width: 120px;
+      background: white;
+      padding: 8px 8px 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      border-radius: 4px;
+    }
+
+    .polaroid img { width: 100%; border-radius: 2px; }
+
+    .polaroid:nth-child(1){top:40px;left:40px;transform:rotate(-8deg);}    
+    .polaroid:nth-child(2){top:20px;left:180px;transform:rotate(5deg);}    
+    .polaroid:nth-child(3){top:60px;left:320px;transform:rotate(-3deg);}    
+    .polaroid:nth-child(4){
+  top:220px;
+  left:40px;
+  transform: rotate(-90deg) scale(0.9);
+}
+.polaroid:nth-child(5){
+  top:220px;
+  left:200px;
+  transform: rotate(-90deg) scale(0.9);
+}
+    .polaroid:nth-child(6){top:200px;left:400px;transform:rotate(4deg);}    
+
+    .music-card { display: flex; gap: 30px; align-items: center; justify-content: center; }
+
+    .album img {
+      width: 220px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    #notes {
+      background: #2b5fa5;
+      position: relative; /* penting buat stiker pojok */
+    }
+
+    #notes .card {
+      background: #fffaf0;
+      padding: 60px 40px;
+      border-radius: 10px;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 22px;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* === STICKER POJOK + ANIMASI === */
+    .sticker {
+      position: absolute;
+      width: 120px;
+      opacity: 0.85;
+      pointer-events: none;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .sticker-top-right {
+      top: 25px;
+      right: 10px;
+      --rot: 6deg;
+    }
+    .sticker-top-left {
+      top : 15px;
+      left: 1px;
+      --rot: 6deg;
+    }
+    .sticker-bottom-left {
+      bottom: 50px;
+      left: 10px;
+      --rot: -8deg;
+    }
+
+    @keyframes float {
+      0%   { transform: translate(0, 0) rotate(var(--rot)); }
+      50%  { transform: translate(4px, -8px) rotate(var(--rot)); }
+      100% { transform: translate(0, 0) rotate(var(--rot)); }
+    }
+
+    .gift-box img {
+      width: 220px;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .gift-box img:hover { transform: scale(1.08); }
+
+    .fade { animation: fadein 0.6s ease; }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .gallery {
+  position: relative;
+}
+
+.sticker-custom {
+  position: absolute;
+  width: 145px;
+  right: 40px;
+  top: 135px;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 5;
+ } 
+  </style>
+</head>
+
+<body>
+
+  <div class="page active" id="landing">
+    <h1>HI, Princess!</h1>
+    <p class="subtitle">DO YOU WANT TO SEE A LITTLE SURPRISE FOR YOU?</p>
+    <div class="buttons">
+      <button onclick="go('surprise')">YES!!</button>
+      <button onclick="alert('Yahh… kok gitu 😓')"
+       >NO, THANKS.</button>
+    </div>
+  </div>
+
+  <div class="page" id="surprise">
+    <h1>THESE ARE FOR YOU</h1>
+
+    <div class="items">
+      <div class="item" onclick="go('photos')">
+        <img src="camera.png">
+        <p>PHOTOS</p>
+      </div>
+
+      <div class="item" onclick="go('music')">
+        <img src="headphones.png">
+        <p>MUSIC</p>
+      </div>
+
+      <div class="item" onclick="go('notes')">
+        <img src="book.png">
+        <p>NOTES</p>
+      </div>
+    </div>
+
+    <br><br>
+    <button onclick="go('present')">OPEN PRESENT</button>
+  </div>
+
+  <div class="page" id="photos">
+    <h1>HAPPY BIRTHDAY</h1>
+
+    <div class="gallery">
+      <div class="polaroid"><img src="photo1.jpg"></div>
+      <div class="polaroid"><img src="photo2.jpg"></div>
+      <div class="polaroid"><img src="photo3.jpg"></div>
+      <div class="polaroid"><img src="photo4.jpg"></div>
+      <div class="polaroid"><img src="photo5.jpg"></div>
+      <div class="polaroid"><img src="photo6.jpg"></div>
+      <img src="sticker.png" class="sticker-custom">
+
+    </div>
+
+    <button onclick="go('surprise')">← BACK</button>
+  </div>
+
+  <div class="page" id="music">
+    <h1>MUSIC FOR YOU</h1>
+
+    <div class="music-card">
+      <div class="album">
+        <img src="album.jpg">
+      </div>
+
+      <div>
+        <h2>About You – The 1975</h2>
+        <p>
+          kamu sering kan nanya, kenapa aku selalu inget hal-hal yang kamu ceritain, even menurut kamu itu hal kecil dan ga penting, maybe the answer is only 1, I only remember things from people I consider special in my life 
+        </p>
+      </div>
+    </div>
+
+    <audio id="bg-music" src="song.mp3" loop></audio>
+
+    <br>
+    <button onclick="go('surprise')">← BACK</button>
+  </div>
+
+  <div class="page" id="notes">
+    <!-- STICKER POJOK -->
+    <img src="sticker1.png" class="sticker sticker-top-right">
+    <img src="sticker2.png" class="sticker sticker-bottom-left">
+    <img src="sticker3.png" class="sticker sticker-top-left">
+    <div class="card">
+      <p>HI,Lala,</p>
+      <p>
+        Selamat ulang tahun, Lala.
+
+Di hari ini, aku ingin jujur dengan cara yang tenang. I write this softly, tanpa maksud mengganggu hidupmu sekarang.
+
+Tentang "dia" yang beberapa kali kuceritakan kepadamu-itu hanya caraku menyamarkan perasaan, agar terlihat seolah aku sudah melangkah pergi. The truth is, orang yang kusebut "dia" itu sebenarnya kamu. Bukan orang lain.
+
+Aku masih punya rasa padamu. Perasaan itu tidak pergi, hanya belajar diam dan menjaga jarak, karena aku tahu hidupmu kini berjalan dengan ceritanya sendiri. Aku mengerti, dan aku menghormati itu.
+
+Pesan ini bukan permintaan, bukan pula harapan yang menuntut jawaban. This is not a request-hanya kejujuran agar perasaanku tidak terus kupendam sendiri.
+
+Bukan untuk meminta jawaban, hanya untuk mengucapkannya dengan cara yang paling baik yang aku bisa.
+
+Semoga di usia barumu, kamu selalu baik-baik saja, langkahmu ringan, dan bahagiamu selalu kamu temukan di jalan yang kamu pilih.
+
+Aku minta maaf atas semua kesalahanku, dan aku berterimakasih karena kamu telah menerima permintaan maafku.
+
+Take care, and happy birthday.
+      </p>
+      <p>WISH U ALL THE BEST,</p>
+      <p>A stranger who happens to know a few things about you </p>
+    </div>
+
+    <br>
+    <button onclick="go('surprise')">← BACK</button>
+  </div>
+
+  <div class="page" id="present">
+    <h1>It's time to open your present!</h1>
+
+    <div class="gift-box" onclick="resetAll()">
+      <img src="gift.png">
+    </div>
+
+    <p>I hope you like it!</p>
+
+    <button onclick="resetAll()">HOME</button>
+  </div>
+
+  <script>
+    const pages = document.querySelectorAll('.page');
+    const music = document.getElementById('bg-music');
+
+    function go(id) {
+      pages.forEach(p => p.classList.remove('active'));
+      const next = document.getElementById(id);
+      next.classList.add('active');
+      next.classList.add('fade');
+      setTimeout(() => next.classList.remove('fade'), 600);
+
+      if (id === 'music') {
+        music.currentTime = 0;
+        music.play();
+      } else {
+        music.pause();
+        music.currentTime = 0;
+      }
+    }
+
+    function resetAll() {
+      music.pause();
+      music.currentTime = 0;
+      go('landing');
+    }
+  </script>
+
+</body>
+</html>
